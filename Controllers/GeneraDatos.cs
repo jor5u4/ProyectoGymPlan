@@ -15,7 +15,6 @@ namespace ProyectoGymPlan.Controllers
         {
             var opciones = new JsonSerializerOptions { WriteIndented = true };
 
-            // 1. Validar y generar Entrenadores (Mínimo 10 registros requeridos)
             if (!File.Exists(ArchivoEntrenadores))
             {
                 var entrenadores = GenerarEntrenadoresBase();
@@ -23,7 +22,6 @@ namespace ProyectoGymPlan.Controllers
                 File.WriteAllText(ArchivoEntrenadores, jsonEntrenadores);
             }
 
-            // 2. Validar y generar Usuarios Básicos (Mínimo 40 registros totales con 5 rutinas)
             if (!File.Exists(ArchivoUsuarios))
             {
                 var usuarios = GenerarUsuariosBase();
@@ -56,20 +54,18 @@ namespace ProyectoGymPlan.Controllers
             var lista = new List<UsuarioBasico>();
             var rnd = new Random(42);
 
-            for (int i = 1; i <= 32; i++) // 32 usuarios + 10 entrenadores = 42 registros en total
+            for (int i = 1; i <= 32; i++)
             {
                 double peso = 65.0 + (i * 1.2);
                 double imc = 21.0 + (i % 6);
                 var usuario = new UsuarioBasico($"Usuario {i}", $"user{i}", "1234", 18 + (i % 25), peso, imc);
 
-                // Historial de visitas para los rankings de top 10
                 int visitas = rnd.Next(1, 15);
                 for (int v = 0; v < visitas; v++)
                 {
                     usuario.HistorialVisitas.Add(DateTime.Now.AddDays(-v * 2));
                 }
 
-                // Asignar mínimo 5 rutinas por usuario con ejercicios
                 for (int r = 1; r <= 5; r++)
                 {
                     var rutina = new Rutina(
@@ -86,7 +82,6 @@ namespace ProyectoGymPlan.Controllers
                     usuario.Rutinas.Add(rutina);
                 }
 
-                // Registro histórico de mediciones
                 usuario.HistorialMediciones.Add(new medicion(DateTime.Now.AddDays(-30), peso + 2.0, imc + 0.8, 32, 95, 82, 96, 54));
 
                 lista.Add(usuario);
