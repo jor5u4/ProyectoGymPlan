@@ -82,7 +82,7 @@ namespace ProyectoGymPlan.Controllers
                     usuario.Rutinas.Add(rutina);
                 }
 
-                usuario.HistorialMediciones.Add(new medicion(DateTime.Now.AddDays(-30), peso + 2.0, imc + 0.8, 32, 95, 82, 96, 54));
+                usuario.HistorialMediciones.Add(new Medicion(DateTime.Now.AddDays(-30), peso + 2.0, imc + 0.8, 32, 95, 82, 96, 54));
 
                 lista.Add(usuario);
             }

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 
 namespace ProyectoGymPlan.Models
 {
-    public class notificacion
+    public class Notificacion
     {
-        public string Mensaje { get; set; }
+        public string Mensaje { get; set; } = string.Empty;
         public DateTime Fecha { get; set; }
 
-        public notificacion(string mensaje, DateTime fecha)
+        public Notificacion()
+        {
+        }
+        public Notificacion(string mensaje, DateTime fecha)
         {
             Mensaje = mensaje;
             Fecha = fecha;
