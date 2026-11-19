@@ -1,3 +1,5 @@
+using ProyectoGymPlan.Views;
+
 namespace ProyectoGymPlan
 {
     internal static class Program
@@ -13,7 +15,7 @@ namespace ProyectoGymPlan
             ApplicationConfiguration.Initialize();
 
             ProyectoGymPlan.Controllers.GeneraDatos.InicializarSiNoExisten();
-            Application.Run(new Form1());
+            Application.Run(new FrmLogin());
 
 
         }

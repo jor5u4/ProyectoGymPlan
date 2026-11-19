@@ -8,8 +8,8 @@ namespace ProyectoGymPlan.Controllers
 {
     public static class GeneraDatos
     {
-        private static readonly string ArchivoUsuarios = "usuarios.json";
-        private static readonly string ArchivoEntrenadores = "entrenadores.json";
+        private static readonly string ArchivoUsuarios = Path.Combine(AppContext.BaseDirectory, "usuarios.json");
+        private static readonly string ArchivoEntrenadores = Path.Combine(AppContext.BaseDirectory, "entrenadores.json");
 
         public static void InicializarSiNoExisten()
         {
@@ -54,7 +54,7 @@ namespace ProyectoGymPlan.Controllers
             var lista = new List<UsuarioBasico>();
             var rnd = new Random(42);
 
-            for (int i = 1; i <= 32; i++)
+            for (int i = 1; i <= 40; i++)
             {
                 double peso = 65.0 + (i * 1.2);
                 double imc = 21.0 + (i % 6);
