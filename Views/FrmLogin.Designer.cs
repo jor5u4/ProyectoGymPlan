@@ -42,7 +42,7 @@
             // 
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitulo.Location = new Point(366, 23);
+            lblTitulo.Location = new Point(387, 34);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(230, 54);
             lblTitulo.TabIndex = 0;
@@ -52,7 +52,7 @@
             // 
             lblBienvenida.AutoSize = true;
             lblBienvenida.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblBienvenida.Location = new Point(366, 107);
+            lblBienvenida.Location = new Point(387, 107);
             lblBienvenida.Name = "lblBienvenida";
             lblBienvenida.Size = new Size(226, 28);
             lblBienvenida.TabIndex = 1;
@@ -61,7 +61,7 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(328, 202);
+            lblUsuario.Location = new Point(318, 204);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(158, 23);
             lblUsuario.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(492, 195);
+            txtUsuario.Location = new Point(492, 197);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(125, 30);
             txtUsuario.TabIndex = 3;
@@ -93,7 +93,7 @@
             // 
             // btnIniciarSesion
             // 
-            btnIniciarSesion.Location = new Point(412, 314);
+            btnIniciarSesion.Location = new Point(402, 317);
             btnIniciarSesion.Name = "btnIniciarSesion";
             btnIniciarSesion.Size = new Size(180, 40);
             btnIniciarSesion.TabIndex = 6;
@@ -104,7 +104,7 @@
             // lblRecuperar
             // 
             lblRecuperar.AutoSize = true;
-            lblRecuperar.Location = new Point(402, 376);
+            lblRecuperar.Location = new Point(387, 381);
             lblRecuperar.Name = "lblRecuperar";
             lblRecuperar.Size = new Size(206, 23);
             lblRecuperar.TabIndex = 7;
