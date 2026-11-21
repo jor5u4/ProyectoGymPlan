@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
 namespace ProyectoGymPlan.Models
@@ -16,6 +17,7 @@ namespace ProyectoGymPlan.Models
         public UsuarioBasico()
         {
         }
+
         public UsuarioBasico(
             string nombre,
             string nombreUsuario,
@@ -26,7 +28,7 @@ namespace ProyectoGymPlan.Models
             : base(nombre, nombreUsuario, contrasena, edad, peso, imc)
         {
             HistorialMediciones.Add(
-                new Medicion(DateTime.Now, peso, imc)
+                new Medicion(DateTime.Now, peso, Altura, imc)
             );
         }
     }

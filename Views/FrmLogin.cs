@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 using System.Windows.Forms;
 using ProyectoGymPlan.Controllers;
 
@@ -20,11 +14,9 @@ namespace ProyectoGymPlan.Views
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-
         }
         private void button1_Click(object sender, EventArgs e)
         {
-
             if (string.IsNullOrWhiteSpace(txtUsuario.Text) ||
                 string.IsNullOrWhiteSpace(txtContrasena.Text))
             {
@@ -37,25 +29,40 @@ namespace ProyectoGymPlan.Views
             string nombreUsuario = txtUsuario.Text.Trim();
             string contrasena = txtContrasena.Text;
 
-            var usuario = controlador.ValidarCredenciales(nombreUsuario, contrasena);
+            var usuario = controlador.ValidarCredenciales(
+                nombreUsuario,
+                contrasena
+            );
+
+            string nombre = "";
+            bool esEntrenador = false;
 
             if (usuario != null)
             {
-                MessageBox.Show($"¡Bienvenido, {usuario.Nombre}!");
-                return;
+                nombre = usuario.Nombre;
             }
-
-            var entrenador = controlador.ValidarCredencialesEntrenador(nombreUsuario, contrasena);
-
-            if (entrenador != null)
+            else
             {
-                MessageBox.Show($"¡Bienvenido, {entrenador.Nombre}!");
-                return;
+                var entrenador = controlador.ValidarCredencialesEntrenador(
+                    nombreUsuario,
+                    contrasena
+                );
+
+                if (entrenador != null)
+                {
+                    nombre = entrenador.Nombre;
+                    esEntrenador = true;
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos.");
+                    return;
+                }
             }
 
-            MessageBox.Show("Usuario o contraseña incorrectos.");
-
+            FrmPrincipal principal = new FrmPrincipal(nombre, esEntrenador, usuario);
+            principal.Show();
+            this.Hide();
         }
-
     }
 }

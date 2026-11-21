@@ -27,6 +27,7 @@ namespace ProyectoGymPlan.Controllers
                 string.Equals(usuario.NombreUsuario, nombreUsuario, StringComparison.OrdinalIgnoreCase)
                 && usuario.Contrasena == contrasena);
         }
+
         public Entrenador? ValidarCredencialesEntrenador(string nombreUsuario, string contrasena)
         {
             string ruta = Path.Combine(AppContext.BaseDirectory, "entrenadores.json");
@@ -43,6 +44,21 @@ namespace ProyectoGymPlan.Controllers
             return entrenadores.FirstOrDefault(entrenador =>
                 string.Equals(entrenador.NombreUsuario, nombreUsuario, StringComparison.OrdinalIgnoreCase)
                 && entrenador.Contrasena == contrasena);
+        }
+
+        public List<UsuarioBasico> ObtenerUsuarios()
+        {
+            string ruta = Path.Combine(AppContext.BaseDirectory, "usuarios.json");
+
+            if (!File.Exists(ruta))
+            {
+                return new List<UsuarioBasico>();
+            }
+
+            string json = File.ReadAllText(ruta);
+
+            return JsonSerializer.Deserialize<List<UsuarioBasico>>(json)
+                ?? new List<UsuarioBasico>();
         }
     }
 }

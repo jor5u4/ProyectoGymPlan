@@ -7,6 +7,7 @@ namespace ProyectoGymPlan.Models
     {
         public DateTime Fecha { get; set; }
         public double Peso { get; set; }
+        public double Altura { get; set; }
         public double Imc { get; set; }
         public double Brazo { get; set; }
         public double Pecho { get; set; }
@@ -17,10 +18,10 @@ namespace ProyectoGymPlan.Models
         public Medicion()
         {
         }
-
         public Medicion(
             DateTime fecha,
             double peso,
+            double altura,
             double imc,
             double brazo = 0,
             double pecho = 0,
@@ -30,6 +31,7 @@ namespace ProyectoGymPlan.Models
         {
             Fecha = fecha;
             Peso = peso;
+            Altura = altura;
             Imc = imc;
             Brazo = brazo;
             Pecho = pecho;
@@ -37,5 +39,6 @@ namespace ProyectoGymPlan.Models
             Cadera = cadera;
             Pierna = pierna;
         }
+
     }
 }

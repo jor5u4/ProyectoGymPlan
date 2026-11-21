@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -28,14 +29,62 @@ namespace ProyectoGymPlan.Controllers
                 string jsonUsuarios = JsonSerializer.Serialize(usuarios, opciones);
                 File.WriteAllText(ArchivoUsuarios, jsonUsuarios);
             }
+
+            ActualizarAlturasUsuarios();
+        }
+
+        private static void ActualizarAlturasUsuarios()
+        {
+            if (!File.Exists(ArchivoUsuarios))
+                return;
+
+            string json = File.ReadAllText(ArchivoUsuarios);
+
+            var opcionesLectura = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var usuarios = JsonSerializer.Deserialize<List<UsuarioBasico>>(json, opcionesLectura);
+
+            if (usuarios == null)
+                return;
+
+            for (int i = 0; i < usuarios.Count; i++)
+            {
+                var usuario = usuarios[i];
+
+                if (usuario.Altura <= 0)
+                    usuario.Altura = 150 + (i % 35);
+
+                if (usuario.HistorialMediciones == null)
+                    usuario.HistorialMediciones = new List<Medicion>();
+
+                foreach (var medicion in usuario.HistorialMediciones)
+                {
+                    if (medicion.Altura <= 0)
+                        medicion.Altura = usuario.Altura;
+                }
+            }
+
+            var opcionesEscritura = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            string jsonActualizado = JsonSerializer.Serialize(usuarios, opcionesEscritura);
+
+            File.WriteAllText(ArchivoUsuarios, jsonActualizado);
         }
 
         private static List<Entrenador> GenerarEntrenadoresBase()
         {
             var lista = new List<Entrenador>();
+
             for (int i = 1; i <= 10; i++)
             {
                 TipoEntrenador tipo = (i % 2 == 0) ? TipoEntrenador.Personal : TipoEntrenador.DeGimnasio;
+
                 lista.Add(new Entrenador(
                     $"Entrenador {i}",
                     $"coach{i}",
@@ -46,6 +95,7 @@ namespace ProyectoGymPlan.Controllers
                     tipo
                 ));
             }
+
             return lista;
         }
 
@@ -58,9 +108,18 @@ namespace ProyectoGymPlan.Controllers
             {
                 double peso = 65.0 + (i * 1.2);
                 double imc = 21.0 + (i % 6);
-                var usuario = new UsuarioBasico($"Usuario {i}", $"user{i}", "1234", 18 + (i % 25), peso, imc);
+
+                var usuario = new UsuarioBasico(
+                    $"Usuario {i}",
+                    $"user{i}",
+                    "1234",
+                    18 + (i % 25),
+                    peso,
+                    imc
+                );
 
                 int visitas = rnd.Next(1, 15);
+
                 for (int v = 0; v < visitas; v++)
                 {
                     usuario.HistorialVisitas.Add(DateTime.Now.AddDays(-v * 2));
@@ -82,10 +141,13 @@ namespace ProyectoGymPlan.Controllers
                     usuario.Rutinas.Add(rutina);
                 }
 
-                usuario.HistorialMediciones.Add(new Medicion(DateTime.Now.AddDays(-30), peso + 2.0, imc + 0.8, 32, 95, 82, 96, 54));
+                usuario.HistorialMediciones.Add(
+                    new Medicion(DateTime.Now.AddDays(-30), peso + 2.0, usuario.Altura, imc + 0.8, 32, 95, 82, 96, 54)
+                );
 
                 lista.Add(usuario);
             }
+
             return lista;
         }
     }

@@ -11,6 +11,7 @@ namespace ProyectoGymPlan.Models
         public Notificacion()
         {
         }
+
         public Notificacion(string mensaje, DateTime fecha)
         {
             Mensaje = mensaje;
