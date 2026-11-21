@@ -12,15 +12,39 @@ namespace ProyectoGymPlan.Views
     {
         private UsuarioBasico? usuario;
         private bool esEntrenador;
+        private Button btnRegistrarVisita;
 
         public FrmPrincipal()
         {
             InitializeComponent();
 
+            btnRutinas.Click -= btnRutinas_Click;
             btnRutinas.Click += btnRutinas_Click;
+
+            btnHistorialVisitas.Click -= btnHistorialVisitas_Click;
             btnHistorialVisitas.Click += btnHistorialVisitas_Click;
+
+            btnMediciones.Click -= btnMediciones_Click;
             btnMediciones.Click += btnMediciones_Click;
+
+            btnNotificaciones.Click -= btnNotificaciones_Click;
             btnNotificaciones.Click += btnNotificaciones_Click;
+
+            btnInsignias.Click -= btnInsignias_Click;
+            btnInsignias.Click += btnInsignias_Click;
+
+            btnRegistrarVisita = new Button();
+            btnRegistrarVisita.Text = "Registrar visita";
+            btnRegistrarVisita.Size = btnRutinas.Size;
+            btnRegistrarVisita.Location = new Point(
+                btnRutinas.Left,
+                btnRutinas.Bottom + 20
+            );
+            btnRegistrarVisita.Visible = false;
+            btnRegistrarVisita.Click += btnRegistrarVisita_Click;
+
+            Controls.Add(btnRegistrarVisita);
+            btnRegistrarVisita.BringToFront();
         }
 
         public FrmPrincipal(string nombre, bool esEntrenador, UsuarioBasico? usuario) : this()
@@ -38,6 +62,7 @@ namespace ProyectoGymPlan.Views
                 btnInsignias.Visible = false;
                 btnNotificaciones.Text = "Notificaciones";
                 btnNotificaciones.Visible = true;
+                btnRegistrarVisita.Visible = true;
             }
             else
             {
@@ -47,6 +72,7 @@ namespace ProyectoGymPlan.Views
                 btnInsignias.Visible = true;
                 btnNotificaciones.Text = "Mis notificaciones";
                 btnNotificaciones.Visible = true;
+                btnRegistrarVisita.Visible = false;
             }
         }
 
@@ -79,7 +105,7 @@ namespace ProyectoGymPlan.Views
                 }
 
                 FrmRutinas formularioRutinas = new FrmRutinas(usuarioSeleccionado, true);
-                formularioRutinas.ShowDialog();
+                formularioRutinas.ShowDialog(this);
                 return;
             }
 
@@ -90,7 +116,41 @@ namespace ProyectoGymPlan.Views
             }
 
             FrmRutinas formularioUsuario = new FrmRutinas(usuario, false);
-            formularioUsuario.ShowDialog();
+            formularioUsuario.ShowDialog(this);
+        }
+
+        private void btnRegistrarVisita_Click(object sender, EventArgs e)
+        {
+            if (!esEntrenador)
+            {
+                MessageBox.Show("Esta opción está disponible para entrenadores.");
+                return;
+            }
+
+            UsuarioController controlador = new UsuarioController();
+            List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
+
+            if (usuarios.Count == 0)
+            {
+                MessageBox.Show("No hay usuarios básicos registrados.");
+                return;
+            }
+
+            UsuarioBasico? usuarioSeleccionado = SeleccionarUsuario(usuarios);
+
+            if (usuarioSeleccionado == null)
+            {
+                return;
+            }
+
+            controlador.RegistrarVisita(usuarioSeleccionado);
+
+            MessageBox.Show(
+                $"La visita de {usuarioSeleccionado.NombreUsuario} se registró correctamente.",
+                "Visita registrada",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+            );
         }
 
         private UsuarioBasico? SeleccionarUsuario(List<UsuarioBasico> usuarios)
@@ -104,7 +164,7 @@ namespace ProyectoGymPlan.Views
             formulario.MinimizeBox = false;
 
             Label lblSeleccion = new Label();
-            lblSeleccion.Text = "Seleccione el usuario para administrar sus rutinas:";
+            lblSeleccion.Text = "Seleccione el usuario:";
             lblSeleccion.Location = new Point(15, 15);
             lblSeleccion.Size = new Size(350, 25);
 
@@ -158,7 +218,7 @@ namespace ProyectoGymPlan.Views
             }
 
             FrmHistorialVisitas formularioVisitas = new FrmHistorialVisitas(usuario);
-            formularioVisitas.ShowDialog();
+            formularioVisitas.ShowDialog(this);
         }
 
         private void btnMediciones_Click(object sender, EventArgs e)
@@ -176,13 +236,56 @@ namespace ProyectoGymPlan.Views
             }
 
             FrmMediciones formularioMediciones = new FrmMediciones(usuario);
-            formularioMediciones.ShowDialog();
+            formularioMediciones.ShowDialog(this);
         }
 
         private void btnNotificaciones_Click(object sender, EventArgs e)
         {
-            FrmNotificaciones formulario = new FrmNotificaciones();
-            formulario.ShowDialog();
+            FrmNotificaciones formulario = new FrmNotificaciones(usuario, esEntrenador);
+            formulario.ShowDialog(this);
+        }
+
+        private void btnInsignias_Click(object sender, EventArgs e)
+        {
+            if (esEntrenador)
+            {
+                MessageBox.Show("Esta opción está disponible para usuarios básicos.");
+                return;
+            }
+
+            if (usuario == null)
+            {
+                MessageBox.Show("No se encontró la información del usuario.");
+                return;
+            }
+
+            UsuarioController controlador = new UsuarioController();
+            List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
+
+            UsuarioBasico? usuarioActualizado = null;
+
+            foreach (UsuarioBasico usuarioGuardado in usuarios)
+            {
+                if (string.Equals(
+                    usuarioGuardado.NombreUsuario,
+                    usuario.NombreUsuario,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    usuarioActualizado = usuarioGuardado;
+                    break;
+                }
+            }
+
+            if (usuarioActualizado == null)
+            {
+                MessageBox.Show("No se encontró la información actualizada del usuario.");
+                return;
+            }
+
+            usuario = usuarioActualizado;
+
+            FrmInsignias formulario = new FrmInsignias(usuario);
+            formulario.ShowDialog(this);
         }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)

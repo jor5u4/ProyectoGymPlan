@@ -9,9 +9,18 @@ namespace ProyectoGymPlan.Views
 {
     public partial class FrmNotificaciones : Form
     {
+        private UsuarioBasico? usuario;
+        private bool esEntrenador;
+
         public FrmNotificaciones()
         {
             InitializeComponent();
+        }
+
+        public FrmNotificaciones(UsuarioBasico? usuario, bool esEntrenador) : this()
+        {
+            this.usuario = usuario;
+            this.esEntrenador = esEntrenador;
         }
 
         private void FrmNotificaciones_Load(object sender, EventArgs e)
@@ -34,20 +43,31 @@ namespace ProyectoGymPlan.Views
 
         private void CargarNotificaciones()
         {
+            if (!esEntrenador && usuario == null)
+            {
+                MessageBox.Show("No se encontró la información del usuario.");
+                return;
+            }
+
             UsuarioController controlador = new UsuarioController();
             List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
 
             DateTime hoy = DateTime.Today;
             DateTime limite = hoy.AddDays(7);
 
-            foreach (UsuarioBasico usuario in usuarios)
+            foreach (UsuarioBasico usuarioActual in usuarios)
             {
-                if (usuario.Rutinas == null)
+                if (!esEntrenador && usuarioActual.NombreUsuario != usuario!.NombreUsuario)
                 {
                     continue;
                 }
 
-                foreach (Rutina rutina in usuario.Rutinas)
+                if (usuarioActual.Rutinas == null)
+                {
+                    continue;
+                }
+
+                foreach (Rutina rutina in usuarioActual.Rutinas)
                 {
                     DateTime vencimiento = rutina.FechaVencimiento.Date;
 
@@ -60,7 +80,7 @@ namespace ProyectoGymPlan.Views
 
                         dgvNotificaciones.Rows.Add(
                             notificacion.Fecha.ToString("dd/MM/yyyy"),
-                            usuario.NombreUsuario,
+                            usuarioActual.NombreUsuario,
                             notificacion.Mensaje,
                             "Vencida"
                         );
@@ -74,7 +94,7 @@ namespace ProyectoGymPlan.Views
 
                         dgvNotificaciones.Rows.Add(
                             notificacion.Fecha.ToString("dd/MM/yyyy"),
-                            usuario.NombreUsuario,
+                            usuarioActual.NombreUsuario,
                             notificacion.Mensaje,
                             "Pendiente"
                         );

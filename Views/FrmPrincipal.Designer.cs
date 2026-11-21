@@ -52,7 +52,7 @@
             // 
             lblBienvenida.AutoSize = true;
             lblBienvenida.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblBienvenida.Location = new Point(370, 110);
+            lblBienvenida.Location = new Point(370, 113);
             lblBienvenida.Name = "lblBienvenida";
             lblBienvenida.Size = new Size(226, 28);
             lblBienvenida.TabIndex = 1;
@@ -93,6 +93,7 @@
             btnInsignias.TabIndex = 5;
             btnInsignias.Text = "Mis insignias";
             btnInsignias.UseVisualStyleBackColor = true;
+            btnInsignias.Click += btnInsignias_Click;
             // 
             // btnNotificaciones
             // 
