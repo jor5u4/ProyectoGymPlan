@@ -64,6 +64,7 @@
             dgvRutinas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRutinas.Size = new Size(800, 300);
             dgvRutinas.TabIndex = 1;
+           
             // 
             // colNombre
             // 

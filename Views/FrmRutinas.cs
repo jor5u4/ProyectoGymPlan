@@ -35,6 +35,9 @@ namespace ProyectoGymPlan.Views
 
             btnVolver.Click -= btnVolver_Click;
             btnVolver.Click += btnVolver_Click;
+
+            dgvRutinas.CellDoubleClick -= dgvRutinas_CellDoubleClick;
+            dgvRutinas.CellDoubleClick += dgvRutinas_CellDoubleClick;
         }
 
         private void FrmRutinas_Load(object sender, EventArgs e)
@@ -166,8 +169,9 @@ namespace ProyectoGymPlan.Views
                     formulario.DescripcionRutina,
                     formulario.FechaInicioRutina,
                     formulario.FechaVencimientoRutina
-                );
 
+                );
+                nuevaRutina.Ejercicios = new List<Ejercicio>(formulario.EjerciciosRutina);
                 usuarioGuardado.Rutinas.Add(nuevaRutina);
 
                 GuardarUsuarios(usuarios);
@@ -236,7 +240,7 @@ namespace ProyectoGymPlan.Views
                 rutinaGuardada.Descripcion = formulario.DescripcionRutina;
                 rutinaGuardada.FechaInicio = formulario.FechaInicioRutina;
                 rutinaGuardada.FechaVencimiento = formulario.FechaVencimientoRutina;
-
+                rutinaGuardada.Ejercicios = new List<Ejercicio>(formulario.EjerciciosRutina);
                 GuardarUsuarios(usuarios);
 
                 usuario = usuarioGuardado;
@@ -320,6 +324,43 @@ namespace ProyectoGymPlan.Views
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void dgvRutinas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Evita error si hacen doble clic en el encabezado de la tabla
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            // Recupera el objeto Rutina que guardaste en el Tag al cargar el grid
+            if (dgvRutinas.Rows[e.RowIndex].Tag is Rutina rutina)
+            {
+                if (rutina.Ejercicios.Count == 0)
+                {
+                    MessageBox.Show("Esta rutina aún no tiene ejercicios.", rutina.Nombre);
+                    return;
+                }
+
+                string ejerciciosTexto = string.Join(
+                    Environment.NewLine,
+                    rutina.Ejercicios.Select(ej =>
+                    {
+                        string linea = $"• {ej.Nombre}: {ej.Series}x{ej.Repeticiones}";
+                        if (ej.Peso > 0) linea += $" | {ej.Peso} kg";
+                        if (ej.DuracionMinutos > 0) linea += $" | {ej.DuracionMinutos} min";
+                        return linea;
+                    })
+                );
+
+                string mensaje =
+                    $"Descripción: {rutina.Descripcion}\n" +
+                    $"Vigencia: {rutina.FechaInicio.ToShortDateString()} - {rutina.FechaVencimiento.ToShortDateString()}\n\n" +
+                    $"Ejercicios:\n{ejerciciosTexto}";
+
+                MessageBox.Show(mensaje, $"Rutina: {rutina.Nombre}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
