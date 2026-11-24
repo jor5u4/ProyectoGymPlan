@@ -1,4 +1,8 @@
-﻿
+﻿///Estudiantes: Nathaly Bejarano Rodriguez / Jorsua Redondo Jimenez
+///Profesor: Luis Felipe Mora
+///Proyecto 1 Tecnicas de programacion
+///Universidad Politecnica Internacional
+
 namespace ProyectoGymPlan.Models
 {    public enum TipoEntrenador
     {

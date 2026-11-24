@@ -1,4 +1,8 @@
-﻿
+﻿///Estudiantes: Nathaly Bejarano Rodriguez / Jorsua Redondo Jimenez
+///Profesor: Luis Felipe Mora
+///Proyecto 1 Tecnicas de programacion
+///Universidad Politecnica Internacional
+
 using System;
 using System.Windows.Forms;
 using ProyectoGymPlan.Models;
@@ -32,7 +36,6 @@ namespace ProyectoGymPlan.Views
                 dtpFechaInicio.Value = rutina.FechaInicio;
                 dtpFechaVencimiento.Value = rutina.FechaVencimiento;
 
-                // Copiamos los ejercicios existentes para no modificar la rutina original si cancelan
                 if (rutina.Ejercicios != null)
                 {
                     EjerciciosRutina = new List<Ejercicio>(rutina.Ejercicios);
@@ -116,7 +119,6 @@ namespace ProyectoGymPlan.Views
             EjerciciosRutina.Add(nuevo);
             ActualizarListaEjercicios();
 
-            // Limpiar campos para el siguiente ejercicio
             TxtNombreEjercicio.Clear();
             Ndseries.Value = 0;
             NdRepes.Value = 0;

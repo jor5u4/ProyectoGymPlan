@@ -1,6 +1,11 @@
-﻿
+﻿///Estudiantes: Nathaly Bejarano Rodriguez / Jorsua Redondo Jimenez
+///Profesor: Luis Felipe Mora
+///Proyecto 1 Tecnicas de programacion
+///Universidad Politecnica Internacional
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ProyectoGymPlan.Controllers;
 using ProyectoGymPlan.Models;
@@ -49,7 +54,7 @@ namespace ProyectoGymPlan.Views
                 return;
             }
 
-            UsuarioController controlador = new UsuarioController();
+            Controllers.Usuario controlador = new Controllers.Usuario();
             List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
 
             DateTime hoy = DateTime.Today;
@@ -102,9 +107,46 @@ namespace ProyectoGymPlan.Views
                 }
             }
 
+            AgregarNotificacionesDelTimeline(usuarios);
+
             if (dgvNotificaciones.Rows.Count == 0)
             {
                 MessageBox.Show("No hay rutinas próximas a vencer ni rutinas vencidas.");
+            }
+        }
+
+        private void AgregarNotificacionesDelTimeline(List<UsuarioBasico> usuarios)
+        {
+            Notificaciones notificaciones = new Notificaciones();
+            List<Notificacion> nuevas;
+            string nombreUsuario;
+
+            if (esEntrenador)
+            {
+                nuevas = notificaciones.GenerarMedicionesProximas(usuarios);
+                nombreUsuario = "Todos";
+            }
+            else
+            {
+                UsuarioBasico? actualizado = usuarios.FirstOrDefault(u =>
+                    string.Equals(u.NombreUsuario, usuario!.NombreUsuario, StringComparison.OrdinalIgnoreCase));
+
+                if (actualizado == null)
+                {
+                    return;
+                }
+
+                nuevas = notificaciones.GenerarParaUsuario(actualizado, usuarios);
+                nombreUsuario = actualizado.NombreUsuario;
+            }
+
+            foreach (Notificacion notificacion in nuevas)
+            {
+                dgvNotificaciones.Rows.Add(
+                    notificacion.Fecha.ToString("dd/MM/yyyy"),
+                    nombreUsuario,
+                    notificacion.Mensaje,
+                    notificacion.Estado);
             }
         }
 
