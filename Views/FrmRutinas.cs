@@ -1,4 +1,8 @@
-﻿
+﻿///Estudiantes: Nathaly Bejarano Rodriguez / Jorsua Redondo Jimenez
+///Profesor: Luis Felipe Mora
+///Proyecto 1 Tecnicas de programacion
+///Universidad Politecnica Internacional
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -328,13 +332,11 @@ namespace ProyectoGymPlan.Views
 
         private void dgvRutinas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Evita error si hacen doble clic en el encabezado de la tabla
             if (e.RowIndex < 0)
             {
                 return;
             }
 
-            // Recupera el objeto Rutina que guardaste en el Tag al cargar el grid
             if (dgvRutinas.Rows[e.RowIndex].Tag is Rutina rutina)
             {
                 if (rutina.Ejercicios.Count == 0)

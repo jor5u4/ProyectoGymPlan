@@ -1,4 +1,8 @@
-﻿
+﻿///Estudiantes: Nathaly Bejarano Rodriguez / Jorsua Redondo Jimenez
+///Profesor: Luis Felipe Mora
+///Proyecto 1 Tecnicas de programacion
+///Universidad Politecnica Internacional
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,6 +17,8 @@ namespace ProyectoGymPlan.Views
         private UsuarioBasico? usuario;
         private bool esEntrenador;
         private Button btnRegistrarVisita;
+        private Button btnEstadisticas;
+        private Button btnClases;
 
         public FrmPrincipal()
         {
@@ -45,6 +51,21 @@ namespace ProyectoGymPlan.Views
 
             Controls.Add(btnRegistrarVisita);
             btnRegistrarVisita.BringToFront();
+
+            btnEstadisticas = new Button();
+            btnEstadisticas.Text = "Estadísticas";
+            btnEstadisticas.Size = btnRutinas.Size;
+            btnEstadisticas.Location = new Point(btnRutinas.Left, btnNotificaciones.Bottom + 6);
+            btnEstadisticas.Visible = false;
+            btnEstadisticas.Click += btnEstadisticas_Click;
+            Controls.Add(btnEstadisticas);
+
+            btnClases = new Button();
+            btnClases.Text = "Clases del gimnasio";
+            btnClases.Size = btnRutinas.Size;
+            btnClases.Location = new Point(btnRutinas.Left, btnEstadisticas.Bottom + 6);
+            btnClases.Click += btnClases_Click;
+            Controls.Add(btnClases);
         }
 
         public FrmPrincipal(string nombre, bool esEntrenador, UsuarioBasico? usuario) : this()
@@ -63,6 +84,8 @@ namespace ProyectoGymPlan.Views
                 btnNotificaciones.Text = "Notificaciones";
                 btnNotificaciones.Visible = true;
                 btnRegistrarVisita.Visible = true;
+                btnEstadisticas.Visible = false;
+                btnClases.Location = new Point(btnRutinas.Left, btnRegistrarVisita.Bottom + 6);
             }
             else
             {
@@ -73,6 +96,7 @@ namespace ProyectoGymPlan.Views
                 btnNotificaciones.Text = "Mis notificaciones";
                 btnNotificaciones.Visible = true;
                 btnRegistrarVisita.Visible = false;
+                btnEstadisticas.Visible = true;
             }
         }
 
@@ -88,7 +112,7 @@ namespace ProyectoGymPlan.Views
         {
             if (esEntrenador)
             {
-                UsuarioController controlador = new UsuarioController();
+                Controllers.Usuario controlador = new Controllers.Usuario();
                 List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
 
                 if (usuarios.Count == 0)
@@ -127,7 +151,7 @@ namespace ProyectoGymPlan.Views
                 return;
             }
 
-            UsuarioController controlador = new UsuarioController();
+            Controllers.Usuario controlador = new Controllers.Usuario();
             List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
 
             if (usuarios.Count == 0)
@@ -259,7 +283,7 @@ namespace ProyectoGymPlan.Views
                 return;
             }
 
-            UsuarioController controlador = new UsuarioController();
+            Controllers.Usuario controlador = new Controllers.Usuario();
             List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
 
             UsuarioBasico? usuarioActualizado = null;
@@ -285,6 +309,24 @@ namespace ProyectoGymPlan.Views
             usuario = usuarioActualizado;
 
             FrmInsignias formulario = new FrmInsignias(usuario);
+            formulario.ShowDialog(this);
+        }
+
+        private void btnEstadisticas_Click(object? sender, EventArgs e)
+        {
+            if (esEntrenador || usuario == null)
+            {
+                MessageBox.Show("Las estadísticas están disponibles para usuarios básicos.");
+                return;
+            }
+
+            FrmEstadisticas formulario = new FrmEstadisticas(usuario);
+            formulario.ShowDialog(this);
+        }
+
+        private void btnClases_Click(object? sender, EventArgs e)
+        {
+            FrmClases formulario = new FrmClases();
             formulario.ShowDialog(this);
         }
 

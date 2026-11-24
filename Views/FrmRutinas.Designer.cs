@@ -57,14 +57,13 @@
             dgvRutinas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvRutinas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRutinas.Columns.AddRange(new DataGridViewColumn[] { colNombre, colObjetivo, colFecha, colEjercicios });
-            dgvRutinas.Location = new Point(40, 131);
+            dgvRutinas.Location = new Point(40, 108);
             dgvRutinas.Name = "dgvRutinas";
             dgvRutinas.ReadOnly = true;
             dgvRutinas.RowHeadersWidth = 51;
             dgvRutinas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRutinas.Size = new Size(800, 300);
+            dgvRutinas.Size = new Size(800, 323);
             dgvRutinas.TabIndex = 1;
-           
             // 
             // colNombre
             // 

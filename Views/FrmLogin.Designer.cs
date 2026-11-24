@@ -93,7 +93,7 @@
             // 
             // btnIniciarSesion
             // 
-            btnIniciarSesion.Location = new Point(402, 317);
+            btnIniciarSesion.Location = new Point(404, 313);
             btnIniciarSesion.Name = "btnIniciarSesion";
             btnIniciarSesion.Size = new Size(180, 40);
             btnIniciarSesion.TabIndex = 6;
@@ -104,7 +104,7 @@
             // lblRecuperar
             // 
             lblRecuperar.AutoSize = true;
-            lblRecuperar.Location = new Point(387, 381);
+            lblRecuperar.Location = new Point(387, 368);
             lblRecuperar.Name = "lblRecuperar";
             lblRecuperar.Size = new Size(206, 23);
             lblRecuperar.TabIndex = 7;
