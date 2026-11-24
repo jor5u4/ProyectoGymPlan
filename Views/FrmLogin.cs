@@ -64,5 +64,12 @@ namespace ProyectoGymPlan.Views
             principal.Show();
             this.Hide();
         }
+
+        private void btnRegistro_Click(object sender, EventArgs e)
+        {
+            frmRegistroUsuario registroUsuario = new frmRegistroUsuario();
+            registroUsuario.Show();
+            this.Hide();
+        }
     }
 }
