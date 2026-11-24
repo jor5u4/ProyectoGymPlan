@@ -51,7 +51,7 @@ namespace ProyectoGymPlan.Views
         {
             dgvClases.Rows.Clear();
 
-            List<ClaseGimnasio> clases = ClasesGimnasioController.CrearTodas();
+            List<ClaseGimnasio> clases = ClaseGimnasioFactory.CrearTodas();
 
             foreach (ClaseGimnasio clase in clases)
             {

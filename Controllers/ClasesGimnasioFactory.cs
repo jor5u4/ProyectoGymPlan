@@ -8,15 +8,18 @@ using System.Collections.Generic;
 using ProyectoGymPlan.Models;
 
 namespace ProyectoGymPlan.Controllers
-{    public enum TipoClase
+{
+    public enum TipoClase
     {
         Yoga,
         Crossfit,
         Zumba,
         Spinning,
         HoraGimnasioAbierto
+
     }
-    public static class ClasesGimnasioController
+    // Aplica el patrón Simple Factory para centralizar la creación de las clases del gimnasio.
+    public static class ClaseGimnasioFactory
     {
         public static ClaseGimnasio Crear(TipoClase tipo)
         {
