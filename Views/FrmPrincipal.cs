@@ -100,20 +100,14 @@ namespace ProyectoGymPlan.Views
             }
         }
 
-        private void lblBienvenida_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void FrmPrincipal_Load(object sender, EventArgs e)
-        {
-        }
+      
 
         private void btnRutinas_Click(object sender, EventArgs e)
         {
             if (esEntrenador)
             {
                 Controllers.Usuario controlador = new Controllers.Usuario();
-                List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
+                List<UsuarioBasico> usuarios = Controllers.Usuario.ObtenerUsuarios();
 
                 if (usuarios.Count == 0)
                 {
@@ -152,7 +146,7 @@ namespace ProyectoGymPlan.Views
             }
 
             Controllers.Usuario controlador = new Controllers.Usuario();
-            List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
+            List<UsuarioBasico> usuarios = Controllers.Usuario.ObtenerUsuarios();
 
             if (usuarios.Count == 0)
             {
@@ -284,7 +278,7 @@ namespace ProyectoGymPlan.Views
             }
 
             Controllers.Usuario controlador = new Controllers.Usuario();
-            List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
+            List<UsuarioBasico> usuarios = Controllers.Usuario.ObtenerUsuarios();
 
             UsuarioBasico? usuarioActualizado = null;
 

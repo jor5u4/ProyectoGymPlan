@@ -16,7 +16,7 @@ namespace ProyectoGymPlan.Views
     public class FrmEstadisticas : Form
     {
         private readonly UsuarioBasico usuario;
-        private readonly filtroEstadisticas estadisticas = new filtroEstadisticas();
+        private readonly FiltroEstadisticas estadisticas = new FiltroEstadisticas();
         private readonly Controllers.Usuario usuarioController = new Controllers.Usuario();
 
         private readonly DateTimePicker dtpDesde = new DateTimePicker();
@@ -125,14 +125,14 @@ namespace ProyectoGymPlan.Views
 
             try
             {
-                List<UsuarioBasico> usuarios = usuarioController.ObtenerUsuarios();
+                List<UsuarioBasico> usuarios = Controllers.Usuario.ObtenerUsuarios();
                 UsuarioBasico actual = usuarios.FirstOrDefault(u =>
                     string.Equals(u.NombreUsuario, usuario.NombreUsuario, StringComparison.OrdinalIgnoreCase))
                     ?? usuario;
 
                 MostrarResumen(actual, desde, hasta);
-                LlenarTabla(dgvTopVisitantes, estadisticas.ObtenerTopVisitantes(usuarios, desde, hasta));
-                LlenarTabla(dgvTopAusentes, estadisticas.ObtenerTopAusentes(usuarios, desde, hasta));
+                LlenarTabla(dgvTopVisitantes, FiltroEstadisticas.ObtenerTopVisitantes(usuarios, desde, hasta));
+                LlenarTabla(dgvTopAusentes, FiltroEstadisticas.ObtenerTopAusentes(usuarios, desde, hasta));
             }
             catch (Exception ex) when (ex is System.IO.IOException || ex is System.Text.Json.JsonException)
             {

@@ -43,7 +43,7 @@
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "MIS INSIGNIAS";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
-            lblTitulo.Click += lblTitulo_Click;
+           
             // 
             // dgvInsignias
             // 

@@ -103,7 +103,7 @@ namespace ProyectoGymPlan.Views
             return usuario.Rutinas.IndexOf(rutina);
         }
 
-        private List<UsuarioBasico> LeerUsuarios()
+        private static List<UsuarioBasico> LeerUsuarios()
         {
             string ruta = Path.Combine(AppContext.BaseDirectory, "usuarios.json");
 

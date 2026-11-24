@@ -18,7 +18,7 @@ namespace ProyectoGymPlan.Controllers
         private const int VisitasMinimasMensuales = 2;
         private const int DiasRutinaNueva = 7;
 
-        private readonly filtroEstadisticas estadisticas = new filtroEstadisticas();
+        private readonly FiltroEstadisticas estadisticas = new FiltroEstadisticas();
 
         public List<Notificacion> GenerarParaUsuario(UsuarioBasico usuario, List<UsuarioBasico> todosLosUsuarios)
         {
@@ -33,7 +33,7 @@ namespace ProyectoGymPlan.Controllers
             return notificaciones;
         }
 
-        public List<Notificacion> GenerarMedicionesProximas(List<UsuarioBasico> usuarios)
+        public static List<Notificacion> GenerarMedicionesProximas(List<UsuarioBasico> usuarios)
         {
             List<Notificacion> notificaciones = new List<Notificacion>();
 
@@ -86,7 +86,7 @@ namespace ProyectoGymPlan.Controllers
         private static void AgregarNotificacionDeDescanso(UsuarioBasico usuario, List<Notificacion> destino)
         {
             DateTime hoy = DateTime.Today;
-            int visitasSemana = filtroEstadisticas.ContarVisitas(usuario, hoy.AddDays(-6), hoy);
+            int visitasSemana = FiltroEstadisticas.ContarVisitas(usuario, hoy.AddDays(-6), hoy);
 
             if (visitasSemana >= VisitasParaDescanso)
             {
@@ -97,12 +97,12 @@ namespace ProyectoGymPlan.Controllers
             }
         }
 
-        private void AgregarNotificacionesDeVerguenza(
+        private static void AgregarNotificacionesDeVerguenza(
             UsuarioBasico usuario, List<UsuarioBasico> todos, List<Notificacion> destino)
         {
             DateTime hoy = DateTime.Today;
             DateTime desde = hoy.AddDays(-30);
-            int visitasMes = filtroEstadisticas.ContarVisitas(usuario, desde, hoy);
+            int visitasMes = FiltroEstadisticas.ContarVisitas(usuario, desde, hoy);
 
             if (visitasMes <= VisitasMinimasMensuales)
             {
@@ -112,8 +112,7 @@ namespace ProyectoGymPlan.Controllers
                     "Vergüenza"));
             }
 
-            bool esTopAusente = estadisticas
-                .ObtenerTopAusentes(todos, desde, hoy, 10)
+            bool esTopAusente = FiltroEstadisticas.ObtenerTopAusentes(todos, desde, hoy, 10)
                 .Any(resumen => string.Equals(resumen.NombreUsuario, usuario.NombreUsuario, StringComparison.OrdinalIgnoreCase));
 
             if (esTopAusente)

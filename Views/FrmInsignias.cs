@@ -20,8 +20,7 @@ namespace ProyectoGymPlan.Views
             Load -= FrmInsignias_Load;
             Load += FrmInsignias_Load;
 
-            btnVolver.Click -= btnVolver_Click;
-            btnVolver.Click += btnVolver_Click;
+            
         }
 
         public FrmInsignias(UsuarioBasico usuario) : this()
@@ -72,13 +71,6 @@ namespace ProyectoGymPlan.Views
             }
         }
 
-        private void lblTitulo_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+       
     }
 }

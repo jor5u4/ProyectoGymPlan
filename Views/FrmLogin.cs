@@ -68,7 +68,7 @@ namespace ProyectoGymPlan.Views
             string nombreUsuario = txtUsuario.Text.Trim();
             string contrasena = txtContrasena.Text;
 
-            var usuario = controlador.ValidarCredenciales(
+            var usuario = UsuarioController.ValidarCredenciales(
                 nombreUsuario,
                 contrasena
             );
@@ -82,7 +82,7 @@ namespace ProyectoGymPlan.Views
             }
             else
             {
-                var entrenador = controlador.ValidarCredencialesEntrenador(
+                var entrenador = UsuarioController.ValidarCredencialesEntrenador(
                     nombreUsuario,
                     contrasena
                 );

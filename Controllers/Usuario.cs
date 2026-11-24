@@ -14,7 +14,7 @@ namespace ProyectoGymPlan.Controllers
 {
     public class Usuario
     {
-        public UsuarioBasico? ValidarCredenciales(string nombreUsuario, string contrasena)
+        public static UsuarioBasico? ValidarCredenciales(string nombreUsuario, string contrasena)
         {
             string ruta = Path.Combine(AppContext.BaseDirectory, "usuarios.json");
 
@@ -33,7 +33,7 @@ namespace ProyectoGymPlan.Controllers
                 && usuario.Contrasena == contrasena);
         }
 
-        public Entrenador? ValidarCredencialesEntrenador(string nombreUsuario, string contrasena)
+        public static Entrenador? ValidarCredencialesEntrenador(string nombreUsuario, string contrasena)
         {
             string ruta = Path.Combine(AppContext.BaseDirectory, "entrenadores.json");
 
@@ -52,7 +52,7 @@ namespace ProyectoGymPlan.Controllers
                 && entrenador.Contrasena == contrasena);
         }
 
-        public List<UsuarioBasico> ObtenerUsuarios()
+        public static List<UsuarioBasico> ObtenerUsuarios()
         {
             string ruta = Path.Combine(AppContext.BaseDirectory, "usuarios.json");
 
@@ -171,7 +171,7 @@ namespace ProyectoGymPlan.Controllers
             return null;
         }
 
-        private bool ExisteNombreUsuario(string nombreUsuario, List<UsuarioBasico> usuarios)
+        private static bool ExisteNombreUsuario(string nombreUsuario, List<UsuarioBasico> usuarios)
         {
             bool existeComoUsuario = usuarios.Any(u =>
                 string.Equals(u.NombreUsuario, nombreUsuario, StringComparison.OrdinalIgnoreCase));
@@ -262,7 +262,7 @@ namespace ProyectoGymPlan.Controllers
             }
         }
 
-        private void AgregarInsigniaVerguenza(
+        private static void AgregarInsigniaVerguenza(
             UsuarioBasico usuario,
             string nombreInsignia)
         {

@@ -55,7 +55,7 @@ namespace ProyectoGymPlan.Views
             }
 
             Controllers.Usuario controlador = new Controllers.Usuario();
-            List<UsuarioBasico> usuarios = controlador.ObtenerUsuarios();
+            List<UsuarioBasico> usuarios = Controllers.Usuario.ObtenerUsuarios();
 
             DateTime hoy = DateTime.Today;
             DateTime limite = hoy.AddDays(7);
@@ -123,7 +123,7 @@ namespace ProyectoGymPlan.Views
 
             if (esEntrenador)
             {
-                nuevas = notificaciones.GenerarMedicionesProximas(usuarios);
+                nuevas = Notificaciones.GenerarMedicionesProximas(usuarios);
                 nombreUsuario = "Todos";
             }
             else

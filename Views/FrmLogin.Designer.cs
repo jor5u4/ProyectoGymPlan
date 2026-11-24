@@ -36,6 +36,7 @@
             txtContrasena = new TextBox();
             btnIniciarSesion = new Button();
             lblRecuperar = new Label();
+            btnRegistro = new Button();
             SuspendLayout();
             // 
             // lblTitulo
@@ -104,17 +105,28 @@
             // lblRecuperar
             // 
             lblRecuperar.AutoSize = true;
-            lblRecuperar.Location = new Point(387, 368);
+            lblRecuperar.Location = new Point(387, 381);
             lblRecuperar.Name = "lblRecuperar";
             lblRecuperar.Size = new Size(206, 23);
             lblRecuperar.TabIndex = 7;
             lblRecuperar.Text = "¿Olvidaste tu contraseña?";
+            // 
+            // btnRegistro
+            // 
+            btnRegistro.Location = new Point(402, 381);
+            btnRegistro.Name = "btnRegistro";
+            btnRegistro.Size = new Size(180, 40);
+            btnRegistro.TabIndex = 8;
+            btnRegistro.Text = "Registrarse";
+            btnRegistro.UseVisualStyleBackColor = true;
+            btnRegistro.Click += btnRegistro_Click;
             // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(998, 636);
+            Controls.Add(btnRegistro);
             Controls.Add(lblRecuperar);
             Controls.Add(btnIniciarSesion);
             Controls.Add(txtContrasena);
@@ -144,5 +156,6 @@
         private TextBox txtContrasena;
         private Button btnIniciarSesion;
         private Label lblRecuperar;
+        private Button btnRegistro;
     }
 }

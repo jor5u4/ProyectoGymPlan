@@ -242,7 +242,7 @@ namespace ProyectoGymPlan.Views
             nuevasInsignias.Add(insignia);
         }
 
-        private bool ObtenerMedida(string texto, out double medida)
+        private static bool ObtenerMedida(string texto, out double medida)
         {
             medida = 0;
 

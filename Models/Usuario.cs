@@ -17,11 +17,15 @@ namespace ProyectoGymPlan.Models
         public double Peso { get; set; }
         public double Altura { get; set; }
         public double Imc { get; set; }
+#pragma warning disable S3442
         public Usuario()
+#pragma warning restore S3442
         {
         }
 
+#pragma warning disable S3442
         public Usuario(string nombre, string nombreUsuario, string contrasena, int edad, double peso, double imc)
+#pragma warning restore S3442
         {
             Nombre = nombre;
             NombreUsuario = nombreUsuario;

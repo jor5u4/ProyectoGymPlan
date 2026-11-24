@@ -26,9 +26,9 @@ namespace ProyectoGymPlan.Controllers
         public int InsigniasVerguenza { get; set; }
     }
 
-    public class filtroEstadisticas
+    public class FiltroEstadisticas
     {
-        public List<ResumenVisitas> ObtenerTopVisitantes(
+        public static List<ResumenVisitas> ObtenerTopVisitantes(
             List<UsuarioBasico> usuarios, DateTime desde, DateTime hasta, int cantidad = 10)
         {
             return CalcularVisitas(usuarios, desde, hasta)
@@ -38,7 +38,7 @@ namespace ProyectoGymPlan.Controllers
                 .ToList();
         }
 
-        public List<ResumenVisitas> ObtenerTopAusentes(
+        public static List<ResumenVisitas> ObtenerTopAusentes(
             List<UsuarioBasico> usuarios, DateTime desde, DateTime hasta, int cantidad = 10)
         {
             return CalcularVisitas(usuarios, desde, hasta)
