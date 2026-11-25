@@ -105,7 +105,7 @@
             // lblRecuperar
             // 
             lblRecuperar.AutoSize = true;
-            lblRecuperar.Location = new Point(387, 381);
+            lblRecuperar.Location = new Point(404, 446);
             lblRecuperar.Name = "lblRecuperar";
             lblRecuperar.Size = new Size(206, 23);
             lblRecuperar.TabIndex = 7;
