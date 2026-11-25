@@ -16,13 +16,6 @@ namespace ProyectoGymPlan.Views
         {
             InitializeComponent();
 
-            Button btnRegistrarse = new Button();
-            btnRegistrarse.Text = "Registrarse";
-            btnRegistrarse.Location = new Point(402, 425);
-            btnRegistrarse.Size = new Size(180, 40);
-            btnRegistrarse.Click += btnRegistrarse_Click;
-            Controls.Add(btnRegistrarse);
-
             lblRecuperar.Cursor = Cursors.Hand;
             lblRecuperar.Click += lblRecuperar_Click;
         }
@@ -39,21 +32,10 @@ namespace ProyectoGymPlan.Views
             }
         }
 
-        private void btnRegistrarse_Click(object? sender, EventArgs e)
-        {
-            using FrmRegistro registro = new FrmRegistro();
-
-            if (registro.ShowDialog(this) == DialogResult.OK)
-            {
-                txtUsuario.Text = registro.NombreUsuarioRegistrado;
-                txtContrasena.Clear();
-                txtContrasena.Focus();
-            }
-        }
-
         private void FrmLogin_Load(object sender, EventArgs e)
         {
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsuario.Text) ||
@@ -106,9 +88,14 @@ namespace ProyectoGymPlan.Views
 
         private void btnRegistro_Click(object sender, EventArgs e)
         {
-            frmRegistroUsuario registroUsuario = new frmRegistroUsuario();
-            registroUsuario.Show();
-            this.Hide();
+            using FrmRegistro registro = new FrmRegistro();
+
+            if (registro.ShowDialog(this) == DialogResult.OK)
+            {
+                txtUsuario.Text = registro.NombreUsuarioRegistrado;
+                txtContrasena.Clear();
+                txtContrasena.Focus();
+            }
         }
     }
 }
