@@ -43,7 +43,6 @@
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "MIS INSIGNIAS";
             lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
-           
             // 
             // dgvInsignias
             // 
@@ -68,6 +67,7 @@
             btnVolver.TabIndex = 2;
             btnVolver.Text = "Volver";
             btnVolver.UseVisualStyleBackColor = true;
+            btnVolver.Click += btnVolver_Click;
             // 
             // FrmInsignias
             // 

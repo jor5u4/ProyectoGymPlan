@@ -20,7 +20,7 @@ namespace ProyectoGymPlan.Views
             Load -= FrmInsignias_Load;
             Load += FrmInsignias_Load;
 
-            
+
         }
 
         public FrmInsignias(UsuarioBasico usuario) : this()
@@ -71,6 +71,11 @@ namespace ProyectoGymPlan.Views
             }
         }
 
-       
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            FrmPrincipal frmPrincipal=new FrmPrincipal();
+            this.Hide();
+            frmPrincipal.Show();
+        }
     }
 }
